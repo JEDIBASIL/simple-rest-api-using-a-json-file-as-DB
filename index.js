@@ -16,7 +16,14 @@ app.get('/users', (req , res)=>{
     });
 })
 
-
+app.get('/user/:id', (req , res)=>{
+    const id = req.params.id;
+    const jsonFormat = fs.readFile(filePath, encoding,(err, data)=>{
+        const userData = JSON.parse(data);
+        res.send(userData.filter(user => user.id == id));
+        res.send("found")
+    });
+})
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=>{
